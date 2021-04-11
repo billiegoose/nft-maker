@@ -9,7 +9,7 @@ nftMaker.init({
   },
   "4": {
     contract: "0xB2e1cE762c8994DC1134A16b8A61e14f16c867E2",
-    openSeaURL: ""
+    openSeaURL: "https://testnets.opensea.io/collection/nft4all-alpha-rinkeby"
   },
   "5": {
     contract: "0x7E124C4444C6A7c996fbC18D44B594A472b2DB89",
