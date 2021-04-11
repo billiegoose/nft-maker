@@ -13,7 +13,7 @@ nftMaker.init({
   },
   "5": {
     contract: "0x7E124C4444C6A7c996fbC18D44B594A472b2DB89",
-    openSeaURL: ""
+    openSeaURL: "https://testnets.opensea.io/collection/nft4all-alpha"
   }
 });
 
