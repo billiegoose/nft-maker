@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <title>NFTs 4 All</title>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div class="App">
+      <section class="card" id="connect-wallet-section">
+        <div class="card-body">
+          <h3 class="card-title">Connect Wallet</h3>
+
+          <div class="form-group">
+            <button
+              type="button"
+              class="btn btn-primary btn-lg"
+              aria-describedby="connectWalletHelp"
+              id="connect-wallet-button"
+            >
+              Connect Wallet
+            </button>
+            <small id="connectWalletHelp" class="form-text text-muted">
+              If you have multiple accounts, select the account you wish to be
+              the NFT's owner.
+            </small>
+          </div>
+
+          <div class="form-group d-none" id="connect-wallet-reveal">
+            <figure class="figure">
+              <div class="card">
+                <div class="card-body">
+                  <pre id="owner-pre"></pre>
+                </div>
+              </div>
+              <figcaption class="figure-caption">
+                The minted NFT will be owned by this account.
+              </figcaption>
+            </figure>
+
+            <figure class="figure">
+              <div class="card">
+                <div class="card-body">
+                  <pre id="contract-name-pre"></pre>
+                </div>
+              </div>
+              <figcaption class="figure-caption">
+                The minted NFT will be part of the
+                <a id="opensea-url-a" href="" target="_blank" rel="noreferrer noopener">
+                  {{contractName}} Collection
+                </a>
+                on OpenSea.
+              </figcaption>
+            </figure>
+
+            <figure class="figure">
+              <div class="card">
+                <div class="card-body">
+                  <pre id="network-name-pre"></pre>
+                </div>
+              </div>
+              <figcaption id="network-name-figcaption" class="figure-caption">
+                The minted NFT will be on the {network} Ethereum network.
+              </figcaption>
+            </figure>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary btn-lg float-right"
+            id="connect-wallet-next"
+            disabled
+            autocomplete="off"
+          >
+            Next ➤
+          </button>
+        </div>
+      </section>
+
+      <section class="card d-none" id="design-section">
+        <div class="card-body">
+          <h3 class="card-title">Design</h3>
+          <form id="design-form" id="nftForm">
+            <div class="form-group">
+              <label htmlFor="image-upload-input">Image</label>
+              <input
+                type="file"
+                class="form-control-file"
+                id="image-upload-input"
+                name="image"
+                accept="image/*"
+                required
+              />
+              <img id="image-upload-preview" class="img-fluid" alt="Preview" />
+            </div>
+
+            <div class="form-group">
+              <label htmlFor="nftName">Name</label>
+              <input
+                class="form-control"
+                id="nftName"
+                name="name"
+                aria-describedby="nameHelp"
+                required
+              />
+              <small id="nameHelp" class="form-text text-muted">
+                This is the name of your NFT art piece.
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label htmlFor="nftDescription">Description</label>
+              <textarea
+                class="form-control"
+                id="nftDescription"
+                name="description"
+                required
+              ></textarea>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-primary btn-lg float-left"
+              id="design-prev"
+            >
+              Prev
+            </button>
+
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg float-right"
+            >
+              Next ➤
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section class="card d-none" id="preview-section">
+        <div class="card-body">
+          <h3 class="card-title">Preview</h3>
+          <figure class="figure">
+            <div class="card">
+              <div class="card-body">
+                <a id="preview-tokenURI-a" target="_blank" rel="noreferrer noopener">
+                  <pre id="preview-tokenURI-pre"></pre>
+                </a>
+              </div>
+            </div>
+            <figcaption class="figure-caption">
+              Here is the <code>tokenURI</code> that will be minted.
+            </figcaption>
+          </figure>
+
+          <br />
+
+          <figure class="figure">
+            <div class="card">
+              <div class="card-body">
+                <pre id="preview-token-metadata"></pre>
+              </div>
+            </div>
+            <figcaption class="figure-caption">
+              Here is how your NFT token data looks (fetched from IPFS).
+            </figcaption>
+          </figure>
+
+          <br />
+
+          <figure class="figure">
+            <a id="preview-image-a" target="_blank" rel="noreferrer noopener">
+              <img
+                id="preview-image-img"
+                class="figure-img img-fluid"
+                alt="Preview loaded from IPFS"
+              />
+            </a>
+            <figcaption class="figure-caption">
+              This is how your image looks (fetched from IPFS).
+            </figcaption>
+          </figure>
+          <hr />
+          <h3 class="card-title">Important!</h3>
+          <p>
+            If you have an IPFS pinning service such as
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://nft.storage/"
+            >nft.storage</a>
+            or
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://pinata.cloud/pinmanager"
+            >Pinata</a>, now is the time to pin these CIDs:
+          </p>
+          <ul>
+            <li>image: <span id="image-cid"></span></li>
+            <li>token data: <span id="token-cid"></span></li>
+          </ul>
+          <p>
+            It is necessary that your IPFS content remain available online in
+            order for your NFT to be viewable and indexed by OpenSea.
+          </p>
+          <p>
+            If you don't pin it, I recommend leaving this browser tab open and
+            not reloading the page until you have seen your NFT on OpenSea.
+            Otherwise you might end up with a broken NFT.
+          </p>
+          <br />
+          <button
+            type="button"
+            class="btn btn-primary btn-lg float-left"
+            id="preview-prev"
+          >
+            Prev
+          </button>
+          <button
+            id="mint-button"
+            type="button"
+            class="btn btn-primary btn-lg float-right"
+            disabled
+            autocomplete="off"
+          >
+            Mint!
+          </button>
+        </div>
+      </section>
+
+      <section class="card d-none" id="minting-section">
+        <div class="card-body">
+          <h3 class="card-title">Minting...</h3>
+          <p>Waiting for blockchain confirmation...</p>
+
+          <figure class="figure">
+            <div class="card">
+              <div class="card-body">
+                <a
+                  id="minting-tx-url-a"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <pre id="minting-tx-url-pre"></pre>
+                </a>
+              </div>
+            </div>
+            <figcaption class="figure-caption">
+              You can view your minting transaction on etherscan.io.
+            </figcaption>
+          </figure>
+
+          <div class="form-group">
+            <button
+              type="button"
+              class="btn btn-primary btn-lg float-left"
+              disabled
+              autocomplete="off"
+            >
+              Prev
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card d-none" id="minted-section">
+        <div class="card-body">
+          <h3 class="card-title">Success!</h3>
+
+          <figure class="figure">
+            <div class="card">
+              <div class="card-body">
+                <a
+                  id="minted-tx-url-a"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <pre id="minted-tx-url-pre"></pre>
+                </a>
+              </div>
+            </div>
+            <figcaption class="figure-caption">
+              You can view your minting transaction on etherscan.io.
+            </figcaption>
+          </figure>
+
+          <h3>NFT Minted!</h3>
+          <p>It should show up in your wallet and on OpenSea shortly.</p>
+
+          <p>
+            If you need to manually add it to your wallet's Collectibles
+            page, here are the details:
+          </p>
+
+          <div class="form-group">
+            <label htmlFor="minted-contract-address">Contract Address</label>
+            <input
+              class="form-control"
+              id="minted-contract-address"
+              readOnly
+            />
+          </div>
+          <div class="form-group">
+            <label htmlFor="minted-nft-token-id">Token Id</label>
+            <input
+              class="form-control"
+              id="minted-nft-token-id"
+              readOnly
+            />
+          </div>
+
+          <div class="form-group">
+            <button
+              type="button"
+              class="btn btn-primary btn-lg float-left"
+              disabled
+              autocomplete="off"
+            >
+              Prev
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary btn-lg float-right"
+              onClick="window.location.reload()"
+            >
+              Start Over
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="https://unpkg.com/ipfs@0.54.4/dist/index.min.js"></script>
+    <script src="https://unpkg.com/ethers@5.1.0/dist/ethers.umd.min.js"></script>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
