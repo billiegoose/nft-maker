@@ -5,7 +5,7 @@ const nftMaker = new NftMaker();
 nftMaker.init({
   "1": {
     contract: "0xceabC60d96944DE03566c007f9749aBe61Fd3381",
-    openSeaURL: ""
+    openSeaURL: "https://opensea.io/collection/nfts-4-all-v2"
   },
   "4": {
     contract: "0xB2e1cE762c8994DC1134A16b8A61e14f16c867E2",
@@ -13,8 +13,7 @@ nftMaker.init({
   },
   "5": {
     contract: "0x7E124C4444C6A7c996fbC18D44B594A472b2DB89",
-    openSeaURL:
-      "https://testnets.opensea.io/assets/goerli/0x7E124C4444C6A7c996fbC18D44B594A472b2DB89/"
+    openSeaURL: ""
   }
 });
 
