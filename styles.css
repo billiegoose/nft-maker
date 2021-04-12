@@ -17,3 +17,9 @@ pre {
 figure {
   display: block !important;
 }
+
+#about-close {
+  position: absolute;
+  right: 5px;
+  top: 0;
+}

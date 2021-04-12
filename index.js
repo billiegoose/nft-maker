@@ -120,7 +120,7 @@ $('design-form').onsubmit = async (e) => {
   } catch (e) {
     window.alert(e.message);
   }
-}
+};
 
 $('preview-prev').onclick = () => {
   $('design-section').classList.remove('d-none');
@@ -148,4 +148,8 @@ $('mint-button').onclick = async () => {
   } catch (e) {
     window.alert(e.message);
   }
-}
+};
+
+$('about-close').onclick = () => {
+  $('about').classList.add('d-none');
+};
