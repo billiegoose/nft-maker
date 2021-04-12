@@ -240,15 +240,18 @@ const abi = [
 const networks = {
   "1": {
     name: "Mainnet",
-    etherscanURL: "https://etherscan.io"
+    etherscanURL: "https://etherscan.io",
+    openSeaAssetUrl: "https://opensea.io/assets/"
   },
   "4": {
     name: "Rinkeby",
-    etherscanURL: "https://rinkeby.etherscan.io"
+    etherscanURL: "https://rinkeby.etherscan.io",
+    openSeaAssetUrl: "https://testnets.opensea.io/assets/rinkeby/"
   },
   "5": {
     name: "Goerli",
-    etherscanURL: "https://goerli.etherscan.io"
+    etherscanURL: "https://goerli.etherscan.io",
+    openSeaAssetUrl: "https://testnets.opensea.io/assets/goerli/"
   }
 };
 
@@ -391,6 +394,10 @@ export class NftMaker {
       etherscanURL: `${this.etherscanURL}/tx/${tx}`,
       tokenIdPromise
     };
+  }
+
+  get openSeaAssetUrl() {
+    return networks[this._networkId].openSeaAssetUrl + this.contractAddress;
   }
 
   async _makeIPFS(blob) {

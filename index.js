@@ -144,6 +144,10 @@ $('mint-button').onclick = async () => {
 
     $('minted-contract-address').value = nftMaker.contractAddress;
     $('minted-nft-token-id').value = tokenId;
+
+    const openSeaURL = `${nftMaker.openSeaAssetUrl}/${tokenId}`;
+    $('minted-opensea-url-a').href = openSeaURL;
+    $('minted-opensea-url-a').innerText = openSeaURL;
   } catch (e) {
     window.alert(e.message);
   }
