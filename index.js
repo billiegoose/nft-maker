@@ -83,7 +83,6 @@ $('design-form').onsubmit = async (e) => {
       imageFile
     );
 
-    console.log(tokenURI, imageURL, bytes32)
     $('preview-tokenURI-a').href = tokenURI;
     $('preview-tokenURI-pre').innerText = tokenURI;
 
@@ -104,6 +103,9 @@ $('design-form').onsubmit = async (e) => {
     
     tokenBytes32 = bytes32;
 
+    $('design-section').classList.add('d-none');
+    $('preview-section').classList.remove('d-none');
+
     const res = await fetch(tokenURI);
     if (res.status !== 200) {
       metadataFetchComplete = false;
@@ -114,9 +116,6 @@ $('design-form').onsubmit = async (e) => {
         $('mint-button').removeAttribute('disabled');
       }
     }
-
-    $('design-section').classList.add('d-none');
-    $('preview-section').classList.remove('d-none');
   } catch (e) {
     window.alert(e.message);
   }
